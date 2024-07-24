@@ -6,7 +6,16 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const Post = require('./models/Post');
 const multer = require('multer');
-const uploadMiddleware = multer({ dest: 'uploads/' });
+// const uploadMiddleware = multer({ dest: 'uploads/' });
+// Change: Use '/tmp/uploads' directory for uploads
+const uploadDirectory = path.join('/tmp', 'uploads');
+
+// Ensure the upload directory exists
+if (!fs.existsSync(uploadDirectory)) {
+  fs.mkdirSync(uploadDirectory, { recursive: true });
+}
+
+const uploadMiddleware = multer({ dest: uploadDirectory });
 const fs = require('fs');
 
 require('dotenv').config();
@@ -16,10 +25,10 @@ const app = express();
 const salt = bcrypt.genSaltSync(10);
 const secret = 'klgefriu3ro32heo3w9';
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(uploadDirectory));
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
