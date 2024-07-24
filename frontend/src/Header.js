@@ -7,7 +7,7 @@ export default function Header() {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:4000/logout', {
+      await fetch('https://mern-blog-backend-eight-iota.vercel.app/logout', {
         credentials: 'include',
         method: 'POST',
       });
@@ -20,7 +20,7 @@ export default function Header() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:4000/profile', {
+        const response = await fetch('https://mern-blog-backend-eight-iota.vercel.app/profile', {
           credentials: 'include',
         });
         if (response.ok) {

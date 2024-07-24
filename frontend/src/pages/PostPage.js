@@ -11,7 +11,7 @@ export default function PostPage() {
   const {id} = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`http://localhost:4000/post/${id}`)
+    fetch(`https://mern-blog-backend-eight-iota.vercel.app/post/${id}`)
       .then(response => {
         response.json().then(postInfo => {
           setPostInfo(postInfo);
@@ -25,7 +25,7 @@ export default function PostPage() {
   const deletePost = async () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        const response = await fetch(`http://localhost:4000/post/${postInfo._id}`, {
+        const response = await fetch(`https://mern-blog-backend-eight-iota.vercel.app/post/${postInfo._id}`, {
           method: 'DELETE',
           credentials: 'include',
         });
@@ -64,7 +64,7 @@ export default function PostPage() {
         </div>
       )}
       <div className="image">
-        <img src={`http://localhost:4000/${postInfo.cover}`} alt=""/>
+        <img src={`https://mern-blog-backend-eight-iota.vercel.app/${postInfo.cover}`} alt=""/>
       </div>
       <div className="content" dangerouslySetInnerHTML={{__html:postInfo.content}} />
     </div>
