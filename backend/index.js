@@ -26,10 +26,10 @@ const app = express();
 const salt = bcrypt.genSaltSync(10);
 const secret = 'klgefriu3ro32heo3w9';
 const corsOptions = {
-  origin: 'https://mern-blog-frontend-seven-bice.vercel.app',
-  credentials: true
+  origin: 'https://mern-blog-frontend-seven-bice.vercel.app/',
+  credentials: false
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(uploadDirectory));
