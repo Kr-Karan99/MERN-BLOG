@@ -25,8 +25,11 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const salt = bcrypt.genSaltSync(10);
 const secret = 'klgefriu3ro32heo3w9';
-
-app.use(cors());
+const corsOptions = {
+  origin: 'https://mern-blog-frontend-seven-bice.vercel.app',
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(uploadDirectory));
