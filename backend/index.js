@@ -11,7 +11,9 @@ const multer = require('multer');
 // const uploadMiddleware = multer({ dest: 'uploads/' });
 // Change: Use '/tmp/uploads' directory for uploads
 const uploadDirectory = path.join('/tmp', 'uploads');
-
+app.use(
+  cors({origin: ['http://localhost:3000', 'https://mern-blog-frontend-seven-bice.vercel.app/']})
+);
 // Ensure the upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
@@ -25,11 +27,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const salt = bcrypt.genSaltSync(10);
 const secret = 'klgefriu3ro32heo3w9';
-const corsOptions = {
-  origin: 'https://mern-blog-frontend-seven-bice.vercel.app/',
-  credentials: false
-};
-app.use(cors());
+
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(uploadDirectory));
