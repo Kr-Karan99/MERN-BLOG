@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path'); // Import the path module
+const fs = require('fs');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -17,7 +18,6 @@ if (!fs.existsSync(uploadDirectory)) {
 }
 
 const uploadMiddleware = multer({ dest: uploadDirectory });
-const fs = require('fs');
 
 require('dotenv').config();
 
