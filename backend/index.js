@@ -8,6 +8,12 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const Post = require('./models/Post');
 const multer = require('multer');
+const app = express();
+const cookieParser = require('cookie-parser');
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+require('dotenv').config();
 // const uploadMiddleware = multer({ dest: 'uploads/' });
 // Change: Use '/tmp/uploads' directory for uploads
 const uploadDirectory = path.join('/tmp', 'uploads');
@@ -19,19 +25,13 @@ if (!fs.existsSync(uploadDirectory)) {
 
 const uploadMiddleware = multer({ dest: uploadDirectory });
 
-require('dotenv').config();
-
-const cookieParser = require('cookie-parser');
-const app = express();
 const salt = bcrypt.genSaltSync(10);
 const secret = 'klgefriu3ro32heo3w9';
 const corsOptions = {
   origin: 'https://mern-blog-frontend-seven-bice.vercel.app',
   credentials: true
 };
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(cookieParser());
+
 app.use('/uploads', express.static(uploadDirectory));
 
 mongoose.connect(process.env.MONGO_URI, {
